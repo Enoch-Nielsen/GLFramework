@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"println",
+				"println!(\""
+			],
+			[
+				"Vec",
+				"Vector2"
+			],
+			[
+				"Obje",
+				"Object = Object::new"
+			],
+			[
+				"eve",
+				"event_loop"
+			],
+			[
+				"unwa",
+				"unwrap()"
+			],
+			[
+				"even",
+				"event_loop"
+			],
+			[
+				"Phy",
+				"PhysicalSize::new"
+			],
+			[
+				"Ins",
+				"Instant::now();"
+			],
+			[
+				"inde",
+				"indeces"
+			],
+			[
+				"ver",
+				"vertex_shader"
+			],
+			[
+				"tv",
+				"tv[2["
+			],
+			[
 				"clear",
 				"clear_console"
 			],
@@ -85,7 +129,19 @@
 		"selected_items":
 		[
 			[
-				"pint",
+				"remove pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"package instal",
+				"Package Control: Install Package"
+			],
+			[
+				"package insta",
 				"Package Control: Install Package"
 			],
 			[
@@ -93,11 +149,15 @@
 				"Package Control: Install Package"
 			],
 			[
-				"install",
+				"package",
+				"Package Control: Add Channel"
+			],
+			[
+				"pint",
 				"Package Control: Install Package"
 			],
 			[
-				"instal",
+				"install",
 				"Package Control: Install Package"
 			],
 			[
@@ -109,7 +169,7 @@
 	},
 	"console":
 	{
-		"height": 56.0,
+		"height": 66.0,
 		"history":
 		[
 			"exit()",
@@ -127,6 +187,17 @@
 	},
 	"file_history":
 	[
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/Cargo.toml",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/Cargo.lock",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/Project.sublime-project",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/b.sh",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/.gitignore",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/Cargo.toml ",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/b",
+		"/home/enochn/.config/sublime-text/Packages/User/rust.sublime-build",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/src/main.rs",
+		"/home/enochn/Dropbox/Development/Programming/Rust/gliumlearning/Cargo.toml",
+		"/home/enochn/Dropbox/Development/Programming/Rust/CharacterReplacementSublime/Cargo.toml",
 		"/home/enochn/Dropbox/Development/Programming/Rust/Graphical/Cargo.toml",
 		"/home/enochn/Dropbox/Development/Programming/Rust/Graphical/Project.sublime-project",
 		"/home/enochn/Dropbox/Development/Programming/Rust/Graphical/src/console.rs",
@@ -158,6 +229,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			";\n",
+			"t",
+			".\n",
 			"let mut c : i32;",
 			"0",
 			"len",
@@ -364,9 +438,13 @@
 	{
 		"height": 120.0
 	},
+	"output.Terminus Build Results":
+	{
+		"height": 138.0
+	},
 	"output.exec":
 	{
-		"height": 311.0
+		"height": 128.0
 	},
 	"output.find_results":
 	{
@@ -412,8 +490,8 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 250.0,
-	"status_bar_visible": true,
+	"side_bar_width": 246.0,
+	"status_bar_visible": false,
 	"template_settings":
 	{
 	}

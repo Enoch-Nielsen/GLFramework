@@ -5,12 +5,14 @@
 // Use
 use glium::{glutin, Surface, glutin::window::Window, glutin::dpi::PhysicalSize};
 
+#[derive(Clone)]
 pub struct Vector2 // A Struct containing 2 values pertaining to X and Y in space.
 {
 	pub x : f32,
 	pub y : f32,
 }
 
+#[derive(Clone)]
 pub struct Vector3 // A Struct containing 3 values pertaining to X, Y, and Z in space.
 {
 	pub x : f32,
@@ -58,7 +60,8 @@ pub struct RenderableObject
 
 impl RenderableObject
 {
-	pub fn new(position : Vector2, size : Vector2, screen_size : Vector2, display : glium::Display, 
+	// Function to create a new Object.
+	pub fn new(position : Vector2, size : Vector2, screen_ratio : f32, display : glium::Display, 
 			vertex_shader : String, fragment_shader : String) -> RenderableObject
 	{
 		return RenderableObject
@@ -74,9 +77,17 @@ impl RenderableObject
 	{
 		self.parent.position = v;
 	}
+	pub fn get_position(&self) -> Vector2
+	{
+		return self.parent.position.clone();
+	}
 
 	pub fn set_size(&mut self, s: Vector2)
 	{
 		self.parent.size = s;		
+	}
+	pub fn get_size(&mut self) -> Vector2
+	{
+		return self.parent.size.clone();
 	}
 }

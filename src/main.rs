@@ -31,6 +31,8 @@ fn main()
     implement_vertex!(Vertex, position);
 
     let mut screen_size : Vector2 = Vector2 {x: 600.0, y: 600.0};
+    let mut screen_ratio : f32 = screen_size.x / screen_size.y;
+
     // Declare window.
     let window_size = PhysicalSize::new(screen_size.x, screen_size.y);
     let event_loop = glutin::event_loop::EventLoop::new();
@@ -38,7 +40,7 @@ fn main()
     let cb = glutin::ContextBuilder::new();
     let display = glium::Display::new(wb, cb, &event_loop).unwrap();
     
-    let _ob : RenderableObject = RenderableObject::new(Vector2 {x: 100.0, y: 100.0}, Vector2 {x: 100.0, y: 100.0}, Vector2 {x: 100.0, y: 100.0}, display.clone(), "".to_string(), "".to_string());
+    let ob : RenderableObject = RenderableObject::new(Vector2 {x: 100.0, y: 100.0}, Vector2 {x: 100.0, y: 100.0}, screen_ratio, display.clone(), "".to_string(), "".to_string());
 
     // Define Vertex Buffer and indeces add shape to it.
     // let vertex_buffer = glium::VertexBuffer::new(&display, &shape).unwrap();
@@ -54,7 +56,7 @@ fn main()
             [t.cos(), -t.sin(), 0.0, 0.0],
             [t.sin(), t.cos(), 0.0, 0.0],
             [0.0, 0.0, 1.0, 0.0],
-            [0.0, 0.0, 0.0, 1.0f32],
+            [t, 0.0, 0.0, 1.0],
         ]
     };
 
@@ -120,6 +122,7 @@ fn main()
         //target.draw(&vertex_buffer, &indices, &program, &uniforms, &Default::default()).unwrap();
         target.finish().unwrap();
 
+        // Event Flow Control.
         match event 
         {
             glutin::event::Event::WindowEvent { event, .. } => match event 
