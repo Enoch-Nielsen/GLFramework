@@ -1,0 +1,19 @@
+
+{
+	"folders":
+    [
+        {
+            "path": "bin/..",
+            "follow_symlinks": true
+        },
+    ],
+    "build_systems":
+    [
+        {
+            "name": "Build",
+            "working_dir": "${project_path}",
+            "cmd": "cargo build && konsole -e cargo run /target/debug/graphics",
+            "shell": true
+        },
+    ]
+}
