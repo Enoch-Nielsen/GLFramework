@@ -1,1 +1,0 @@
-/home/enochn/Desktop/Development/Programming/Rust/GLFramework/target/debug/gliumlearning: /home/enochn/Desktop/Development/Programming/Rust/GLFramework/src/main.rs /home/enochn/Desktop/Development/Programming/Rust/GLFramework/src/misc.rs /home/enochn/Desktop/Development/Programming/Rust/GLFramework/src/object.rs
