@@ -1,1 +1,1 @@
-cargo build && konsole -e cargo run /target/debug/gliumlearning
+cargo build && konsole -e cargo run /target/debug/gliumlearnin
