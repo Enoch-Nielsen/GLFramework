@@ -125,6 +125,10 @@
 		"selected_items":
 		[
 			[
+				"remove pa",
+				"Package Control: Remove Package"
+			],
+			[
 				"instal",
 				"Package Control: Install Package"
 			],
@@ -161,7 +165,7 @@
 	},
 	"console":
 	{
-		"height": 56.0,
+		"height": 66.0,
 		"history":
 		[
 			"exit()",
@@ -180,6 +184,7 @@
 	"file_history":
 	[
 		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/src/main.rs",
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/Project.sublime-project",
 		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/.gitignore",
 		"/home/enochn/Dropbox/Development/Programming/Rust/gliumlearning/Cargo.toml",
 		"/home/enochn/Dropbox/Development/Programming/Rust/CharacterReplacementSublime/Cargo.toml",
@@ -423,9 +428,13 @@
 	{
 		"height": 120.0
 	},
+	"output.Terminus Build Results":
+	{
+		"height": 138.0
+	},
 	"output.exec":
 	{
-		"height": 256.0
+		"height": 105.0
 	},
 	"output.find_results":
 	{
@@ -467,11 +476,11 @@
 	"settings":
 	{
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 250.0,
+	"side_bar_width": 246.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

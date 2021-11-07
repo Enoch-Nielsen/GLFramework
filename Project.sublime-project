@@ -13,7 +13,6 @@
             "name": "Build",
             "working_dir": "${project_path}",
             "cmd": "cargo build && konsole -e cargo run /target/debug/gliumlearning",
-            //"selector": "source.c++",
             "shell": true
         },
     ]
