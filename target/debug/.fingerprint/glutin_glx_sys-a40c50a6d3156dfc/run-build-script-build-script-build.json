@@ -1,0 +1,1 @@
+{"rustc":9905615409658916977,"features":"","target":0,"profile":0,"path":0,"deps":[[10085218343671898577,"build_script_build",false,5734082425466143093]],"local":[{"RerunIfChanged":{"output":"debug/build/glutin_glx_sys-a40c50a6d3156dfc/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}
