@@ -125,6 +125,10 @@
 		"selected_items":
 		[
 			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
 				"package instal",
 				"Package Control: Install Package"
 			],
@@ -146,10 +150,6 @@
 			],
 			[
 				"install",
-				"Package Control: Install Package"
-			],
-			[
-				"instal",
 				"Package Control: Install Package"
 			],
 			[
@@ -179,6 +179,7 @@
 	},
 	"file_history":
 	[
+		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/src/main.rs",
 		"/home/enochn/Desktop/Development/Programming/Rust/GLFramework/.gitignore",
 		"/home/enochn/Dropbox/Development/Programming/Rust/gliumlearning/Cargo.toml",
 		"/home/enochn/Dropbox/Development/Programming/Rust/CharacterReplacementSublime/Cargo.toml",

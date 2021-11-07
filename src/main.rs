@@ -1,11 +1,14 @@
-/* This is a commited comment!*/
+#![allow(unused_assignments)]
+#![allow(unused_parens)]
+#![allow(unused_imports)]
+#![allow(unused_variables)]
+#![allow(unused_mut)]
 
 // Crates
 #[macro_use]
 extern crate glium;
 
 // Use
-#[allow(unused_imports)]
 use crate::object::RenderableObject;
 use crate::object::Object;
 use crate::object::Vector2;
@@ -15,10 +18,6 @@ use std::time::Instant;
 // Mods
 mod misc;
 mod object;
-
-// Syntax Rules
-#[allow(unused_assignments)]
-#[allow(unused_parens)]
 
 fn main() 
 {   
@@ -31,7 +30,7 @@ fn main()
 
     implement_vertex!(Vertex, position);
 
-    let mut screen_size : Vector2 = Vector2 {x: 100.0, y: 100.0};
+    let mut screen_size : Vector2 = Vector2 {x: 600.0, y: 600.0};
     // Declare window.
     let window_size = PhysicalSize::new(screen_size.x, screen_size.y);
     let event_loop = glutin::event_loop::EventLoop::new();
