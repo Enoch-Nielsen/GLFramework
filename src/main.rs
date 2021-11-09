@@ -41,7 +41,6 @@ fn main()
 	let display = glium::Display::new(wb, cb, &event_loop).unwrap();
 	
 	let ob : RenderableObject = RenderableObject::new(Vector2 {x: 100.0, y: 100.0}, Vector2 {x: 100.0, y: 100.0}, screen_ratio, display.clone(), "".to_string(), "".to_string());
-
 	// Define Vertex Buffer and indeces add shape to it.
 	// let vertex_buffer = glium::VertexBuffer::new(&display, &shape).unwrap();
 	// let indices = glium::IndexBuffer::new(&display, glium::index::PrimitiveType::TrianglesList, &[0u16, 1, 2, 2, 0, 3,]).unwrap();
@@ -99,7 +98,6 @@ fn main()
 	{
 		//let next_frame_time = std::time::Instant::now() + std::time::Duration::from_nanos(16_666_667);
 		//*control_flow = glutin::event_loop::ControlFlow::WaitUntil(next_frame_time);
-
 
 		timer = Instant::now(); // Reset Timer
 		
