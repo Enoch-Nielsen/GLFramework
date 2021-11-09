@@ -5,13 +5,11 @@
     "tasks": 
     [
         {
-            "label": "C/C++: g++ build active file",
+            "label": "Build and Run Rust File",
             "type": "shell",
             "command": "cargo build && konsole -e cargo run target/debug/gl_framework",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
+            "group": 
+            {
                 "kind": "build",
                 "isDefault": true
             }
