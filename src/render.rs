@@ -69,6 +69,7 @@ impl Display
 
 		for i in 0..self.render_list.len()
 		{
+			println!("{} | {}", self.render_list[i].vertex_list[0].position[0], self.render_list[i].vertex_list[0].position[1]);
 			let vertex_buffer = glium::VertexBuffer::new(&self.display, &self.render_list[i].vertex_list).unwrap();
 			let indices = glium::IndexBuffer::new(&self.display, glium::index::PrimitiveType::TrianglesList,
 		   		&[0u16, 1, 2, 2, 0, 3,]).unwrap();

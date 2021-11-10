@@ -89,19 +89,25 @@ impl Object
 /**
 *	0 for rect, 1 for circle.	
 */	
-pub fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_size : Vector2) -> Vec<Vert>
+pub fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_size : &Vector2) -> Vec<Vert>
 {
-	let x_conv : f32 = (2.0 / window_size.x) - 1.0;
-	let y_conv : f32 = (-2.0 / window_size.y) + 1.0;
+	let x_conv : f32 = (2.0 / window_size.x);
+	let y_conv : f32 = (-2.0 / window_size.y);
+
+	let x_pos = (position.x * x_conv) - 1.0;
+	let y_pos = (position.y * y_conv) + 1.0;
+
+	let x_total = (position.x + size.x * x_conv) - 1.0;
+	let y_total = (position.y + size.y * y_conv) + 1.0;
 
 	let mut vertex_list : Vec<Vert> = Vec::new();
 
 	if shape == 0 // FIX THIS, OPEN GL OBJECTS ARE CENTERED.
 	{
-		vertex_list.push(Vert {position : [position.x * x_conv, position.y * y_conv]}); // Vertex 1
-		vertex_list.push(Vert {position : [(size.x + position.x * x_conv), (position.y * y_conv)]}); // Vertex 2
-		vertex_list.push(Vert {position : [(size.x + position.x * x_conv), (size.y + position.y * y_conv)]}); // Vertex 3
-		vertex_list.push(Vert {position : [(position.x * x_conv), (position.y * y_conv)]}); // Vertex 4.
+		vertex_list.push(Vert {position : [x_pos, y_pos]}); // Vertex 1
+		vertex_list.push(Vert {position : [(x_total), (y_pos)]}); // Vertex 2
+		vertex_list.push(Vert {position : [(x_total), (y_total)]}); // Vertex 3
+		vertex_list.push(Vert {position : [(x_pos), (y_total)]}); // Vertex 4.
 	}
 
 	return vertex_list;
@@ -121,7 +127,7 @@ pub struct RenderableObject
 impl RenderableObject
 {
 	// Function to create a new RenderableObject.
-	pub fn new(position : Vector2, size : Vector2, color : Vector4, window_size : Vector2, shape_type : u8) -> RenderableObject
+	pub fn new(position : Vector2, size : Vector2, color : Vector4, window_size : &Vector2, shape_type : u8) -> RenderableObject
 	{
 		// Define base shader.
 		let vertex_shader = String::from
@@ -160,7 +166,7 @@ impl RenderableObject
 			window_size : window_size.clone(),
 			vertex_shader,
 			fragment_shader,
-			vertex_list : generate_vertices(position.clone(), size.clone(), shape_type, window_size.clone()),
+			vertex_list : generate_vertices(position.clone(), size.clone(), shape_type, &window_size),
 		};
 	}
 
