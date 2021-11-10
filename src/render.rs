@@ -9,56 +9,72 @@ use crate::object::{Vector2, Vector3, Vector4, RenderableObject, Object, Vert};
 use glium::{glutin, Surface, glutin::window::Window, glutin::dpi::PhysicalSize};
 use std::time::Instant;
 
+pub fn generate_display(size : Vector2, event_loop : &glutin::event_loop::EventLoop<()>) -> glium::Display
+{
+	let window_size = PhysicalSize::new(size.x, size.y);
+	let wb = glutin::window::WindowBuilder::new().with_inner_size(window_size);
+	let cb = glutin::ContextBuilder::new();
+	let display = glium::Display::new(wb, cb, &event_loop).unwrap();
+
+	return display;
+}
+
 pub struct Display
 {
-	screen_size : Vector2,
-	screen_ratio : f32,
-	render_list : Vec<RenderableObject>,
+	pub screen_size : Vector2,
+	pub render_list : Vec<RenderableObject>,
 	display : glium::Display,
 }
 
 impl Display
 {
-	pub fn new(screen_size: Vector2, display : &glium::Display) -> Display
+	pub fn new(screen_size: Vector2, event_loop : &glutin::event_loop::EventLoop<()>) -> Display
 	{
 		return Display 
 		{
 			screen_size : screen_size.clone(),
-			screen_ratio : (screen_size.x / screen_size.y) as f32,
 			render_list: Vec::new(),
-			display : display.clone(),
+			display : generate_display(screen_size.clone(), &event_loop),
 		};
 	}
 
 	pub fn render(&mut self)
 	{		
-		//let next_frame_time = std::time::Instant::now() + std::time::Duration::from_nanos(16_666_667);
-		//*control_flow = glutin::event_loop::ControlFlow::WaitUntil(next_frame_time);
+		let vertex_shader =
+		r#"
+			#version 140
+			in vec2 position;
+	
+			void main() 
+			{
+				gl_Position = vec4(position, 0.0, 1.0);
+			}
+		"#;
 
-		let uniforms = uniform! 
-		{ 
-			//let : t.abs(), 
-			matrix: 
-			[
-				[1.0, 0.0, 0.0, 0.0],
-				[0.0, 1.0, 0.0, 0.0],
-				[0.0, 0.0, 1.0, 0.0],
-				[0.0, 0.0, 0.0, 1.0],
-			]
-		};
+		let fragment_shader =
+		r#" 
+			#version 140
+			out vec4 color;
+
+			void main()
+			{
+				color = vec4(1.0, 1.0, 1.0, 1.0);
+			}
+		"#;
+
+		let program = glium::Program::from_source(&self.display, vertex_shader, fragment_shader, None).unwrap();
 
 		let mut target = self.display.draw();
 		target.clear_color(0.0, 0.0, 0.0, 1.0);
 
 		for i in 0..self.render_list.len()
 		{
-			//target.draw(&vertex_buffer, &indices, &program, &uniforms, &Default::default()).unwrap();
+			let vertex_buffer = glium::VertexBuffer::new(&self.display, &self.render_list[i].vertex_list).unwrap();
+			let indices = glium::IndexBuffer::new(&self.display, glium::index::PrimitiveType::TrianglesList,
+		   		&[0u16, 1, 2, 2, 0, 3,]).unwrap();
+			target.draw(&vertex_buffer, &indices, &program, &glium::uniforms::EmptyUniforms, &Default::default()).unwrap();
 		}
 
 		target.finish().unwrap();
-
-		// Event Flow Control.
-
-		//delta_time = timer.elapsed().as_secs_f32() / 5.0; // Set Delta Time
 	}
 }

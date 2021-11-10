@@ -21,16 +21,9 @@ mod render;
 
 fn main() 
 {   
-	let mut screen_size : Vector2 = Vector2 {x: 600.0, y: 600.0};
-	let mut screen_ratio : f32 = screen_size.x / screen_size.y;
-
-	let window_size = PhysicalSize::new(screen_size.x, screen_size.y);
+	let mut window_size : Vector2 = Vector2 {x: 1280.0, y: 720.0};
 	let event_loop = glutin::event_loop::EventLoop::new();
-	let wb = glutin::window::WindowBuilder::new().with_inner_size(window_size);
-	let cb = glutin::ContextBuilder::new();
-	let display = glium::Display::new(wb, cb, &event_loop).unwrap();
-
-	let mut disp = Display::new(screen_size, &display);
+	let mut display = Display::new(window_size.clone(), &event_loop);
 
 	// Declare Vertex.
 	implement_vertex!(Vert, position);
@@ -39,11 +32,17 @@ fn main()
 	let mut timer : Instant = Instant::now();
 	let mut delta_time : f32 = 1.0;
 
+	let shape_color : Vector4 = Vector4::new(1.0, 1.0, 1.0, 1.0);
+	let mut ob : RenderableObject = RenderableObject::new(Vector2{x: 100.0, y: 100.0}, Vector2{x: 100.0, y: 100.0}, shape_color,
+		window_size.clone(), 0);
+
+	display.render_list.push(ob);
+
 	// Main Loop.
 	event_loop.run(move |event, _, control_flow| 
 	{
 		// Render
-		disp.render();
+		display.render();
 
 		// Event handling.
 		match event 

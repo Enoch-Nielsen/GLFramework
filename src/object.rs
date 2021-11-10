@@ -16,6 +16,13 @@ pub struct Vector2 // A Struct containing 2 values pertaining to X and Y in spac
 {
 	pub x : f32,
 	pub y : f32,
+} 
+impl Vector2 
+{
+	pub fn new(x : f32, y : f32) -> Vector2 
+	{
+		return Vector2{x, y};
+	}
 }
 
 #[derive(Clone)]
@@ -25,6 +32,13 @@ pub struct Vector3 // A Struct containing 3 values pertaining to X, Y, and Z in 
 	pub y : f32,
 	pub z : f32,
 }
+impl Vector3
+{
+	pub fn new(x : f32, y : f32, z : f32) -> Vector3
+	{
+		return Vector3{x, y, z};
+	}
+}
 
 #[derive(Clone)]
 pub struct Vector4 // A Struct containing 3 values pertaining to X, Y, and Z in space.
@@ -33,6 +47,13 @@ pub struct Vector4 // A Struct containing 3 values pertaining to X, Y, and Z in 
 	pub y : f32,
 	pub z : f32,
 	pub o : f32,
+}
+impl Vector4
+{
+	pub fn new(x : f32, y : f32, z : f32, o : f32) -> Vector4 
+	{
+		return Vector4{x, y, z, o}
+	}
 }
 
 // Object Definition.
@@ -65,21 +86,42 @@ impl Object
 	}
 }
 
+/**
+*	0 for rect, 1 for circle.	
+*/	
+pub fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_size : Vector2) -> Vec<Vert>
+{
+	let x_conv : f32 = (2.0 / window_size.x) - 1.0;
+	let y_conv : f32 = (-2.0 / window_size.y) + 1.0;
+
+	let mut vertex_list : Vec<Vert> = Vec::new();
+
+	if shape == 0 // FIX THIS, OPEN GL OBJECTS ARE CENTERED.
+	{
+		vertex_list.push(Vert {position : [position.x * x_conv, position.y * y_conv]}); // Vertex 1
+		vertex_list.push(Vert {position : [(size.x + position.x * x_conv), (position.y * y_conv)]}); // Vertex 2
+		vertex_list.push(Vert {position : [(size.x + position.x * x_conv), (size.y + position.y * y_conv)]}); // Vertex 3
+		vertex_list.push(Vert {position : [(position.x * x_conv), (position.y * y_conv)]}); // Vertex 4.
+	}
+
+	return vertex_list;
+}
+
 // RenderableObject Defenition.
 pub struct RenderableObject
 {
-	parent : Object,
-	color : Vector4,
+	pub parent : Object,
+	pub color : Vector4,
 	window_size : Vector2,
-	vertex_shader: String,
-	fragment_shader: String,
-	vertex_list: Vec<Vert>,
+	pub vertex_shader: String,
+	pub fragment_shader: String,
+	pub vertex_list: Vec<Vert>,
 }
 
 impl RenderableObject
 {
 	// Function to create a new RenderableObject.
-	pub fn new(&mut self, position : Vector2, size : Vector2, color : Vector4, window_size : Vector2, shape_type : u8) -> RenderableObject
+	pub fn new(position : Vector2, size : Vector2, color : Vector4, window_size : Vector2, shape_type : u8) -> RenderableObject
 	{
 		// Define base shader.
 		let vertex_shader = String::from
@@ -102,13 +144,11 @@ impl RenderableObject
 			r#" 
 				#version 140
 				out vec4 color;
-				out vec3 pcolor;
-				uniform float t;
-				
+				uniform float r, g, b, a;
+
 				void main()
 				{
-					pcolor = vec3(t, t, t);
-					color = vec4(pcolor, 1.0);
+					color = vec4(r, g, b, a);
 				}
 			"#
 		);
@@ -120,39 +160,8 @@ impl RenderableObject
 			window_size : window_size.clone(),
 			vertex_shader,
 			fragment_shader,
-			vertex_list : self.generate_shape(position.clone(), size.clone(), shape_type, &window_size),
+			vertex_list : generate_vertices(position.clone(), size.clone(), shape_type, window_size.clone()),
 		};
-	}
-
-	/**
-	*	0 for rect, 1 for circle.	
-	*/
-	pub fn generate_shape(&mut self, position : Vector2, size : Vector2, shape : u8, window_size : &Vector2) -> Vec<Vert>
-	{
-		let x_conv : f32 = 1.0 / window_size.x;
-		let y_conv : f32 = 1.0 / window_size.y;
-
-		let mut vertex_list : Vec<Vert> = Vec::new();
-
-		if shape == 0 // FIX THIS, OPEN GL OBJECTS ARE CENTERED.
-		{
-			for i in 0..3
-			{
-				if i == 0
-				{
-					vertex_list.push(Vert {position : [position.x * x_conv, position.y * y_conv]});
-				}
-				else
-				{
-					vertex_list.push(Vert {position : [(size.x * x_conv) + (position.x * x_conv), (size.y * y_conv) + (position.y * y_conv)]});
-				}
-			}
-
-			//let x : f32 = 
-			
-		}
-
-		return vertex_list;
 	}
 
 	// Getters and Setters for the objects position.
