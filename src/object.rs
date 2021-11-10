@@ -97,8 +97,12 @@ pub fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_
 	let x_pos = (position.x * x_conv) - 1.0;
 	let y_pos = (position.y * y_conv) + 1.0;
 
-	let x_total = (position.x + size.x * x_conv) - 1.0;
-	let y_total = (position.y + size.y * y_conv) + 1.0;
+	let x_total = ((position.x + size.x) * x_conv) - 1.0;
+	let y_total = ((position.y + size.y) * y_conv) + 1.0;
+
+	println!("{} | {}\n\n", x_pos, x_total);
+	println!("{} | {}", y_pos, y_total);
+
 
 	let mut vertex_list : Vec<Vert> = Vec::new();
 
@@ -134,13 +138,11 @@ impl RenderableObject
 		(
 			r#"
 				#version 140
-		
 				in vec2 position;
-				uniform mat4 matrix;
 		
 				void main() 
 				{
-					gl_Position = matrix * vec4(position, 0.0, 1.0);
+					gl_Position = vec4(position, 0.0, 1.0);
 				}
 			"#
 		);
@@ -150,11 +152,10 @@ impl RenderableObject
 			r#" 
 				#version 140
 				out vec4 color;
-				uniform float r, g, b, a;
 
 				void main()
 				{
-					color = vec4(r, g, b, a);
+					color = vec4(1.0, 1.0, 1.0, 1.0);
 				}
 			"#
 		);

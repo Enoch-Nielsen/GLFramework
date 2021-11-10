@@ -33,10 +33,14 @@ fn main()
 	let mut delta_time : f32 = 1.0;
 
 	let shape_color : Vector4 = Vector4::new(1.0, 1.0, 1.0, 1.0);
-	let mut ob : RenderableObject = RenderableObject::new(Vector2{x: 0.0, y: 100.0}, Vector2{x: 5.0, y: 1.0}, shape_color,
+	let mut ob : RenderableObject = RenderableObject::new(Vector2{x: 500.0, y: 100.0}, Vector2{x: 100.0, y: 200.0}, shape_color.clone(),
+		&window_size, 0);
+
+	let mut ab : RenderableObject = RenderableObject::new(Vector2{x: 100.0, y: 100.0}, Vector2{x: 100.0, y: 200.0}, shape_color.clone(),
 		&window_size, 0);
 
 	display.render_list.push(ob);
+	display.render_list.push(ab);
 
 	// Main Loop.
 	event_loop.run(move |event, _, control_flow| 

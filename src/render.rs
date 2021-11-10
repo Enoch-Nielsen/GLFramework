@@ -40,42 +40,22 @@ impl Display
 
 	pub fn render(&mut self)
 	{		
-		let vertex_shader =
-		r#"
-			#version 140
-			in vec2 position;
-	
-			void main() 
-			{
-				gl_Position = vec4(position, 0.0, 1.0);
-			}
-		"#;
-
-		let fragment_shader =
-		r#" 
-			#version 140
-			out vec4 color;
-
-			void main()
-			{
-				color = vec4(1.0, 1.0, 1.0, 1.0);
-			}
-		"#;
-
-		let program = glium::Program::from_source(&self.display, vertex_shader, fragment_shader, None).unwrap();
+		
+		let indices = glium::IndexBuffer::new(&self.display, glium::index::PrimitiveType::TrianglesList,
+			&[0u16, 1, 2, 2, 0, 3,]).unwrap();
 
 		let mut target = self.display.draw();
 		target.clear_color(0.0, 0.0, 0.0, 1.0);
 
 		for i in 0..self.render_list.len()
 		{
-			println!("{} | {}", self.render_list[i].vertex_list[0].position[0], self.render_list[i].vertex_list[0].position[1]);
+			//println!("{} | {}", self.render_list[i].vertex_list[0].position[0], self.render_list[i].vertex_list[0].position[1]);
 			let vertex_buffer = glium::VertexBuffer::new(&self.display, &self.render_list[i].vertex_list).unwrap();
-			let indices = glium::IndexBuffer::new(&self.display, glium::index::PrimitiveType::TrianglesList,
-		   		&[0u16, 1, 2, 2, 0, 3,]).unwrap();
+			
+			let program = glium::Program::from_source(&self.display, self.render_list[i].vertex_shader.as_str(), self.render_list[i].fragment_shader.as_str(), None).unwrap();
 			target.draw(&vertex_buffer, &indices, &program, &glium::uniforms::EmptyUniforms, &Default::default()).unwrap();
 		}
-
+		
 		target.finish().unwrap();
 	}
 }
