@@ -93,9 +93,9 @@ impl Object
 }
 
 /**
-*	0 for rect, 1 for circle.	
+*	A function that will generate vertices for the given object, given the number it will output the given shape.
 */	
-pub fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_size : &Vector2) -> Vec<Vert>
+fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_size : Vector2) -> Vec<Vert>
 {
 	let circle_resolution = 32;
 
@@ -119,8 +119,6 @@ pub fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_
 
 	let mut vertex_list : Vec<Vert> = Vec::new();
 
-	
-	
 	if shape == 0
 	{
 		vertex_list.push(Vert {position : [x_pos, y_pos]}); // Vertex 1
@@ -151,6 +149,8 @@ pub fn generate_vertices(position : Vector2, size : Vector2, shape : u8, window_
 	return vertex_list;
 }
 
+
+// Generates indices for each trio of vertices. Given the type.
 pub fn generate_indices(t : u8) -> Vec<u16>
 {
 	let mut indice_arr : Vec<u16> = Vec::new();
@@ -181,8 +181,8 @@ pub fn generate_indices(t : u8) -> Vec<u16>
 // RenderableObject Defenition.
 pub struct RenderableObject
 {
-	pub parent : Object,
-	pub color : Vector4,
+	parent : Object,
+	color : Vector4,
 	window_size : Vector2,
 	pub vertex_shader : String,
 	pub fragment_shader : String,
@@ -193,7 +193,7 @@ pub struct RenderableObject
 impl RenderableObject
 {
 	// Function to create a new RenderableObject.
-	pub fn new(position : Vector2, size : Vector2, rotation : f32, color : Vector4, window_size : &Vector2, shape_type : u8) -> RenderableObject
+	pub fn new(position : Vector2, size : Vector2, rotation : f32, color : Vector4, window_size : Vector2, shape_type : u8) -> RenderableObject
 	{
 		// Define base shader.
 		let vertex_shader = String::from
@@ -231,7 +231,7 @@ impl RenderableObject
 			window_size : window_size.clone(),
 			vertex_shader,
 			fragment_shader,
-			vertex_list : generate_vertices(position.clone(), size.clone(), shape_type, &window_size),
+			vertex_list : generate_vertices(position.clone(), size.clone(), shape_type, window_size.clone()),
 			indice_arr : generate_indices(shape_type),
 		};
 	}

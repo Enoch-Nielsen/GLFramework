@@ -23,7 +23,7 @@ pub struct Display
 {
 	pub screen_size : Vector2,
 	pub render_list : Vec<RenderableObject>,
-	display : glium::Display,
+	pub glium_display : glium::Display,
 }
 
 impl Display
@@ -34,21 +34,22 @@ impl Display
 		{
 			screen_size : screen_size.clone(),
 			render_list: Vec::new(),
-			display : generate_display(screen_size.clone(), &event_loop),
+			glium_display : generate_display(screen_size.clone(), &event_loop),
 		};
 	}
 
 	pub fn render(&mut self)
 	{		
-		let mut target = self.display.draw();
+		let mut target = self.glium_display.draw();
 		target.clear_color(0.0, 0.0, 0.0, 1.0);
 
 		for i in 0..self.render_list.len()
 		{
-			let indices = glium::IndexBuffer::new(&self.display, glium::index::PrimitiveType::TrianglesList,
+			let indices = glium::IndexBuffer::new(&self.glium_display, glium::index::PrimitiveType::TrianglesList,
 				&self.render_list[i].indice_arr).unwrap();
-			let vertex_buffer = glium::VertexBuffer::new(&self.display, &self.render_list[i].vertex_list).unwrap();
-			let program = glium::Program::from_source(&self.display, self.render_list[i].vertex_shader.as_str(), self.render_list[i].fragment_shader.as_str(), None).unwrap();
+				
+			let vertex_buffer = glium::VertexBuffer::new(&self.glium_display, &self.render_list[i].vertex_list).unwrap();
+			let program = glium::Program::from_source(&self.glium_display, self.render_list[i].vertex_shader.as_str(), self.render_list[i].fragment_shader.as_str(), None).unwrap();
 
 			let uniforms = uniform! 
 			{

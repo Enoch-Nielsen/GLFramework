@@ -21,7 +21,7 @@ mod render;
 
 fn main() 
 {   
-	let mut window_size : Vector2 = Vector2 {x: 1000.0, y: 1000.0};
+	let mut window_size : Vector2 = Vector2 {x: 1500.0, y: 1000.0};
 	let event_loop = glutin::event_loop::EventLoop::new();
 	let mut display = Display::new(window_size.clone(), &event_loop);
 
@@ -32,12 +32,13 @@ fn main()
 	let mut timer : Instant = Instant::now();
 	let mut delta_time : f32 = 1.0;
 
-	let shape_color : Vector4 = Vector4::new(0.0, 1.0, 1.0, 1.0);
-	let mut ob : RenderableObject = RenderableObject::new(Vector2{x: 100.0, y: 200.0}, Vector2{x: 100.0, y: 100.0}, 0.0, shape_color.clone(),
-		&window_size, 0);
+	let rect_color : Vector4 = Vector4::new(0.0, 1.0, 1.0, 1.0);
+	let mut ob : RenderableObject = RenderableObject::new(Vector2{x: 100.0, y: 200.0}, Vector2{x: 100.0, y: 100.0}, 20.0, rect_color,
+		window_size.clone(), 0);
 
-	let mut ab : RenderableObject = RenderableObject::new(Vector2{x: 300.0, y: 600.0}, Vector2{x: 200.0, y: 100.0}, 0.0, shape_color.clone(),
-		&window_size, 1);
+	let circle_color : Vector4 = Vector4::new(0.0, 1.0, 0.0, 1.0);
+	let mut ab : RenderableObject = RenderableObject::new(Vector2{x: 300.0, y: 600.0}, Vector2{x: 200.0, y: 100.0}, 0.0, circle_color,
+		window_size.clone(), 1);
 
 	display.render_list.push(ob);
 	display.render_list.push(ab);
