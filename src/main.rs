@@ -43,9 +43,14 @@ fn main()
 	display.render_list.push(ob);
 	display.render_list.push(ab);
 
+
+	let mut x = 0.0;
+
 	// Main Loop.
 	event_loop.run(move |event, _, control_flow| 
 	{
+		x += delta_time;
+
 		// Render
 		display.render();
 

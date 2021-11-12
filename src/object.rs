@@ -2,7 +2,9 @@
 #![allow(dead_code)]
 #[allow(unused_imports)]
 
+
 // Use
+use std::ops::Add;
 use glium::{glutin, Surface, glutin::window::Window, glutin::dpi::PhysicalSize, uniforms};
 
 // Consts
@@ -28,6 +30,18 @@ impl Vector2
 		return Vector2{x, y};
 	}
 }
+impl Add for Vector2 
+{
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
 
 #[derive(Clone)]
 pub struct Vector3 // A Struct containing 3 values pertaining to X, Y, and Z in space.
@@ -61,6 +75,7 @@ impl Vector4
 }
 
 // Object Definition.
+#[derive(Clone)]
 pub struct Object
 {
 	position : Vector2,
@@ -91,6 +106,8 @@ impl Object
 	}
 	// ADD GETTERS HERE
 }
+
+
 
 /**
 *	A function that will generate vertices for the given object, given the number it will output the given shape.
@@ -179,11 +196,13 @@ pub fn generate_indices(t : u8) -> Vec<u16>
 }
 
 // RenderableObject Defenition.
+#[derive(Clone)]
 pub struct RenderableObject
 {
 	parent : Object,
 	color : Vector4,
 	window_size : Vector2,
+	pub shape_type : u8,
 	pub vertex_shader : String,
 	pub fragment_shader : String,
 	pub vertex_list : Vec<Vert>,
@@ -229,6 +248,7 @@ impl RenderableObject
 			parent : Object::new(position.clone(), size.clone(), rotation.clone()),
 			color,
 			window_size : window_size.clone(),
+			shape_type,
 			vertex_shader,
 			fragment_shader,
 			vertex_list : generate_vertices(position.clone(), size.clone(), shape_type, window_size.clone()),
@@ -237,11 +257,12 @@ impl RenderableObject
 	}
 
 	// Getters and Setters for the objects position.
-	pub fn set_position(&mut self, v: Vector2)
+	pub fn set_position(&mut self, v : Vector2)
 	{
-		self.parent.position = v;
+		self.parent.position = v.clone();
+		self.vertex_list = generate_vertices(v, self.parent.size.clone(), self.shape_type, self.window_size.clone())
 	}
-	pub fn get_position(&self) -> Vector2
+	pub fn get_position(&mut self) -> Vector2
 	{
 		return self.parent.position.clone();
 	}
